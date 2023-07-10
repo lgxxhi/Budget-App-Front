@@ -45,11 +45,11 @@ function ShowTransaction() {
     <div className="container">
       <h2 className="my-3">Transaction Details</h2>
 
-      <div class="card text-center mb-3">
-        <div class="card-body">
-          <h3 class="card-title">{transactionArray.itemName}</h3>
-          <p class="card-text">${transactionArray.amount}</p>
-          <p class="card-text">
+      <div className="card text-center mb-3">
+        <div className="card-body">
+          <h3 className="card-title">{transactionArray.itemName}</h3>
+          <p className="card-text">${transactionArray.amount}</p>
+          <p className="card-text">
             <strong>{transactionArray.from}</strong>
           </p>
           <p className="card-text">
@@ -60,19 +60,23 @@ function ShowTransaction() {
             <strong>Category: </strong>
             {transactionArray.category}
           </p>
-          <p>
-            <strong>Transaction Type: </strong>
-          </p>
+
           <a
             onClick={() => navigate("/transactions")}
-            class="btn btn-outline-dark"
+            className="btn btn-outline-dark"
           >
             Back
           </a>
-          <a onClick={() => handleEdit(id)} class="btn btn-outline-dark mx-3">
+          <a
+            onClick={() => handleEdit(id)}
+            className="btn btn-outline-dark mx-3"
+          >
             Edit
           </a>
-          <a onClick={() => handleDeleteById(id)} class="btn btn-outline-dark">
+          <a
+            onClick={() => handleDeleteById(id)}
+            className="btn btn-outline-dark"
+          >
             Delete
           </a>
         </div>

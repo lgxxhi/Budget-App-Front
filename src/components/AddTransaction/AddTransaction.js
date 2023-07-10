@@ -46,31 +46,31 @@ function AddTransaction() {
       </div>
       <form onSubmit={handleOnSubmit}>
         <div
-          class="btn-group"
+          className="btn-group"
           role="group"
           aria-label="Basic radio toggle button group"
         >
           <input
             onClick={() => setTransactionType(1)}
             type="radio"
-            class="btn-check"
+            className="btn-check"
             name="btnradio"
             id="btnradio1"
-            autocomplete="off"
+            autoComplete="off"
           />
-          <label class="btn btn-outline-primary" for="btnradio1">
+          <label className="btn btn-outline-primary" htmlFor="btnradio1">
             Income
           </label>
 
           <input
             onClick={() => setTransactionType(-1)}
             type="radio"
-            class="btn-check"
+            className="btn-check"
             name="btnradio"
             id="btnradio3"
-            autocomplete="off"
+            autoComplete="off"
           />
-          <label class="btn btn-outline-danger" for="btnradio3">
+          <label className="btn btn-outline-danger" htmlFor="btnradio3">
             Expense
           </label>
         </div>
