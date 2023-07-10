@@ -10,6 +10,8 @@ function AddTransaction() {
   const [amountState, setAmountState] = useState(0);
   const [dateState, setDateState] = useState("");
   const [fromState, setFromState] = useState("");
+  const [categoryState, setCategoryState] = useState("");
+  const [transactionType, setTransactionType] = useState(-1);
 
   async function handleOnSubmit(e) {
     e.preventDefault();
@@ -18,19 +20,20 @@ function AddTransaction() {
       let result = await axios.post(`http://localhost:3001/transactions/`, {
         id: uuidv4(),
         itemName: itemNameState,
-        amount: Number(amountState),
+        amount: Number(amountState) * transactionType,
         from: fromState,
         date: dateState,
+        category: categoryState,
       });
 
-      console.log(result);
+      // console.log(result);
 
       setItemNameState("");
       setAmountState(0);
       setDateState("");
       setFromState("");
 
-      navigate("/transactions");
+      navigate(`/transactions/${result.data[result.data.length - 1].id}`);
     } catch (e) {
       console.log(e);
     }
@@ -42,15 +45,34 @@ function AddTransaction() {
         <h1>Add a new item</h1>
       </div>
       <form onSubmit={handleOnSubmit}>
-        <div>
-          <label>Date</label>
-          <br />
+        <div
+          class="btn-group"
+          role="group"
+          aria-label="Basic radio toggle button group"
+        >
           <input
-            type="date"
-            value={dateState}
-            onChange={(e) => setDateState(e.target.value)}
-            required
+            onClick={() => setTransactionType(1)}
+            type="radio"
+            class="btn-check"
+            name="btnradio"
+            id="btnradio1"
+            autocomplete="off"
           />
+          <label class="btn btn-outline-primary" for="btnradio1">
+            Income
+          </label>
+
+          <input
+            onClick={() => setTransactionType(-1)}
+            type="radio"
+            class="btn-check"
+            name="btnradio"
+            id="btnradio3"
+            autocomplete="off"
+          />
+          <label class="btn btn-outline-danger" for="btnradio3">
+            Expense
+          </label>
         </div>
 
         <div>
@@ -68,6 +90,8 @@ function AddTransaction() {
           <br />
           <input
             type="number"
+            step={".01"}
+            min={0}
             value={amountState}
             onChange={(e) => setAmountState(e.target.value)}
             required
@@ -83,8 +107,31 @@ function AddTransaction() {
             required
           />
         </div>
-
-        <button>Create New Item</button>
+        <div>
+          <label>Date:</label>
+          <br />
+          <input
+            type="date"
+            value={dateState}
+            onChange={(e) => setDateState(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Category:</label>
+          <br />
+          <select onChange={(e) => setCategoryState(e.target.value)}>
+            <option value=""></option>
+            <option value="Income">Income</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Food">Food</option>
+            <option value="Pets">Pets</option>
+            <option value="Medical">Medical</option>
+            <option value="Recreation">Recreation</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <button className="mt-3 btn btn-outline-dark">Create New Item</button>
       </form>
     </div>
   );

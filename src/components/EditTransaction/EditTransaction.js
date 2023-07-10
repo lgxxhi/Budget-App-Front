@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-const { v4: uuidv4 } = require("uuid");
 
 function EditTransaction() {
   let navigate = useNavigate();
@@ -12,6 +11,8 @@ function EditTransaction() {
   const [amountState, setAmountState] = useState(0);
   const [dateState, setDateState] = useState("");
   const [fromState, setFromState] = useState("");
+  const [categoryState, setCategoryState] = useState("");
+  const [transactionType, setTransactionType] = useState(-1);
 
   useEffect(() => {
     handleFetch();
@@ -23,12 +24,13 @@ function EditTransaction() {
 
       console.log(result.data);
 
-      const { itemName, amount, date, from } = result.data;
+      const { itemName, amount, date, from, category } = result.data;
 
       setAmountState(amount);
       setDateState(date);
       setFromState(from);
       setItemNameState(itemName);
+      setCategoryState(category);
     } catch (e) {
       console.log(e);
     }
@@ -40,9 +42,10 @@ function EditTransaction() {
     try {
       let result = await axios.put(`http://localhost:3001/transactions/${id}`, {
         itemName: itemNameState,
-        amount: Number(amountState),
+        amount: Number(amountState) * transactionType,
         from: fromState,
         date: dateState,
+        category: categoryState,
       });
 
       alert("Updated!");
@@ -58,17 +61,57 @@ function EditTransaction() {
       <div>
         <h1>Edit</h1>
       </div>
+
       <form onSubmit={handleOnSubmit}>
+        <div
+          class="btn-group"
+          role="group"
+          aria-label="Basic radio toggle button group"
+        >
+          <input
+            onClick={() => setTransactionType(1)}
+            type="radio"
+            class="btn-check"
+            name="btnradio"
+            id="btnradio1"
+            autocomplete="off"
+          />
+          <label class="btn btn-outline-primary" for="btnradio1">
+            Income
+          </label>
+
+          <input
+            onClick={() => setTransactionType(-1)}
+            type="radio"
+            class="btn-check"
+            name="btnradio"
+            id="btnradio3"
+            autocomplete="off"
+          />
+          <label class="btn btn-outline-danger" for="btnradio3">
+            Expense
+          </label>
+        </div>
         <div>
-          <label>Item Name:</label>
+          <label>Name:</label>
           <br />
           <input
             type="text"
             value={itemNameState}
             onChange={(e) => setItemNameState(e.target.value)}
           />
+        </div>{" "}
+        <div>
+          <label>Amount:</label>
+          <br />
+          <input
+            type="number"
+            step={".01"}
+            min={0}
+            value={amountState}
+            onChange={(e) => setAmountState(e.target.value)}
+          />
         </div>
-
         <div>
           <label>From:</label>
           <br />
@@ -88,16 +131,23 @@ function EditTransaction() {
           />
         </div>
         <div>
-          <label>Amount:</label>
+          <label>Category:</label>
           <br />
-          <input
-            type="number"
-            value={amountState}
-            onChange={(e) => setAmountState(e.target.value)}
-          />
+          <select
+            value={categoryState}
+            onChange={(e) => setCategoryState(e.target.value)}
+          >
+            <option value=""></option>
+            <option value="Income">Income</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Food">Food</option>
+            <option value="Pets">Pets</option>
+            <option value="Medical">Medical</option>
+            <option value="Recreation">Recreation</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
-
-        <button>Submit</button>
+        <button className="mt-3">Submit</button>
       </form>
     </div>
   );

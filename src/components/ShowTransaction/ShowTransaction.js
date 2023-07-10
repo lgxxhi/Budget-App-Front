@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import moment from "moment";
 
 function ShowTransaction() {
   const { id } = useParams();
@@ -41,30 +42,40 @@ function ShowTransaction() {
   }
 
   return (
-    <div>
-      <div>
-        <h1>Show</h1>
-      </div>
-      <div className="card mb-3 container">
-        <div className="card-body">
-          <h2 className="card-title">
-            {transactionArray.itemName} - {transactionArray.from}
-          </h2>
-          <h5>{transactionArray.amount}</h5>
-          <p className="card-text">
-            <small>
-              <strong>Days since last crisis: </strong>
-              {transactionArray.date}
-            </small>
+    <div className="container">
+      <h2 className="my-3">Transaction Details</h2>
+
+      <div class="card text-center mb-3">
+        <div class="card-body">
+          <h3 class="card-title">{transactionArray.itemName}</h3>
+          <p class="card-text">${transactionArray.amount}</p>
+          <p class="card-text">
+            <strong>{transactionArray.from}</strong>
           </p>
+          <p className="card-text">
+            <strong>Transaction Date: </strong>
+            {moment(transactionArray.date).format("LL")}{" "}
+          </p>
+          <p>
+            <strong>Category: </strong>
+            {transactionArray.category}
+          </p>
+          <p>
+            <strong>Transaction Type: </strong>
+          </p>
+          <a
+            onClick={() => navigate("/transactions")}
+            class="btn btn-outline-dark"
+          >
+            Back
+          </a>
+          <a onClick={() => handleEdit(id)} class="btn btn-outline-dark mx-3">
+            Edit
+          </a>
+          <a onClick={() => handleDeleteById(id)} class="btn btn-outline-dark">
+            Delete
+          </a>
         </div>
-      </div>
-      <div className="text-center ">
-        <button onClick={() => navigate("/transactions")}>Back</button>
-        <button className="mx-5" onClick={() => handleEdit(id)}>
-          Edit
-        </button>
-        <button onClick={() => handleDeleteById(id)}>Delete</button>
       </div>
     </div>
   );
