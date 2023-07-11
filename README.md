@@ -14,7 +14,7 @@ To run the app locally follow these steps
 1. Clone the repository
 2. cd into the directory where you cloned it
 3. Npm install to install dependencies
-4. Npm start to start start the react app on localhost:300
+4. Npm start to start start the react app on localhost:3000
 
 ## Back End Github Repositoy:
 
