@@ -20,7 +20,9 @@ function EditTransaction() {
 
   async function handleFetch() {
     try {
-      let result = await axios.get(`http://localhost:3001/transactions/${id}`);
+      let result = await axios.get(
+        `https://budget-backend-mafr.onrender.com/transactions/${id}`
+      );
 
       console.log(result.data);
 

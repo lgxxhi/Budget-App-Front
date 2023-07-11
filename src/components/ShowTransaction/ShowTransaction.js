@@ -15,7 +15,9 @@ function ShowTransaction() {
 
   async function fetchData() {
     try {
-      let result = await axios.get(`http://localhost:3001/transactions/${id}`);
+      let result = await axios.get(
+        `https://budget-backend-mafr.onrender.com/transactions/${id}`
+      );
 
       setTransactionArray(result.data);
     } catch (e) {
@@ -26,7 +28,7 @@ function ShowTransaction() {
   async function handleDeleteById(id) {
     try {
       let result = await axios.delete(
-        `http://localhost:3001/transactions/${id}`
+        `https://budget-backend-mafr.onrender.com/transactions/${id}`
       );
 
       setTransactionArray(result.data);

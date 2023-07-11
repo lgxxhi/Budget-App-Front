@@ -17,14 +17,17 @@ function AddTransaction() {
     e.preventDefault();
 
     try {
-      let result = await axios.post(`http://localhost:3001/transactions/`, {
-        id: uuidv4(),
-        itemName: itemNameState,
-        amount: Number(amountState) * transactionType,
-        from: fromState,
-        date: dateState,
-        category: categoryState,
-      });
+      let result = await axios.post(
+        `https://budget-backend-mafr.onrender.com/transactions/`,
+        {
+          id: uuidv4(),
+          itemName: itemNameState,
+          amount: Number(amountState) * transactionType,
+          from: fromState,
+          date: dateState,
+          category: categoryState,
+        }
+      );
 
       // console.log(result);
 
