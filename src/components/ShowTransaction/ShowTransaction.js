@@ -11,7 +11,7 @@ function ShowTransaction() {
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   async function fetchData() {
     try {

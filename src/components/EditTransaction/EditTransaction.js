@@ -16,7 +16,7 @@ function EditTransaction() {
 
   useEffect(() => {
     handleFetch();
-  });
+  }, []);
 
   async function handleFetch() {
     try {
