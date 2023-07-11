@@ -9,7 +9,7 @@ function Nav() {
           <h1>Budget App</h1>
         </Link>
         <Link to={"/transactions/new-transaction"}>
-          <button className="btn btn-outline-dark">New Ttransaction</button>
+          <button className="btn btn-outline-dark">New Transaction</button>
         </Link>
       </div>
     </nav>
