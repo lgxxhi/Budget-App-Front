@@ -15,12 +15,7 @@ function Transactions() {
 
   async function fetchData() {
     try {
-      let url =
-        process.env.NODE_ENV === "production"
-          ? "https://budget-backend-mafr.onrender.com"
-          : "localhost:3001";
-
-      let result = await axios.get(`${url}/transactions`);
+      let result = await axios.get("http://localhost:3001/transactions");
       for (let i of result.data) {
         setTotal((total += i.amount));
       }
