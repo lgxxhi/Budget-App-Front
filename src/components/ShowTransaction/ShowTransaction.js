@@ -11,7 +11,7 @@ function ShowTransaction() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   async function fetchData() {
     try {
@@ -61,24 +61,24 @@ function ShowTransaction() {
             {transactionArray.category}
           </p>
 
-          <a
+          <button
             onClick={() => navigate("/transactions")}
             className="btn btn-outline-dark"
           >
             Back
-          </a>
-          <a
+          </button>
+          <button
             onClick={() => handleEdit(id)}
             className="btn btn-outline-dark mx-3"
           >
             Edit
-          </a>
-          <a
+          </button>
+          <button
             onClick={() => handleDeleteById(id)}
             className="btn btn-outline-dark"
           >
             Delete
-          </a>
+          </button>
         </div>
       </div>
     </div>

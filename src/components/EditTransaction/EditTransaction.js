@@ -16,7 +16,7 @@ function EditTransaction() {
 
   useEffect(() => {
     handleFetch();
-  }, []);
+  });
 
   async function handleFetch() {
     try {
@@ -40,7 +40,7 @@ function EditTransaction() {
     e.preventDefault();
 
     try {
-      let result = await axios.put(`http://localhost:3001/transactions/${id}`, {
+      await axios.put(`http://localhost:3001/transactions/${id}`, {
         itemName: itemNameState,
         amount: Number(amountState) * transactionType,
         from: fromState,
